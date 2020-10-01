@@ -1,4 +1,4 @@
-<form action="#form_post" method="post" id="form_post">
+<div>
     <div>
         <label for="title">Title</label>
         <input type="text" name="title" id="title" placeholder="Title">
@@ -15,6 +15,6 @@
         <input type="text" name="content" id="content" placeholder="Content">
     </div>
     <div>
-        <input type="submit" name="submit" value="Save">
+        <button id="submit" >Save</button>
     </div>
-</form>
+</div>
