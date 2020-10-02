@@ -36,6 +36,37 @@ class Rest_Api {
         }
     }
 
+    public function ra_list_posts() {
+        $response = wp_remote_get( get_site_url( get_option('blogid'), '/wp-json/wp/v2/posts'));        
+        
+        $table = '<table border="1">
+                    <thead>
+                        <th>Title</th>
+                        <th>Content</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </thead>
+                    <tbody id="table-post">';
+
+        if( !is_wp_error( $response ) && $response['response']['code'] == 200 ) {
+            $remote_posts = json_decode($response['body']);
+            foreach( $remote_posts as $remote_post ) {
+                $table .= '<tr>
+                                <td>'. $remote_post->title->rendered . '</td>
+                                <td>'. $remote_post->excerpt->rendered . '</td>
+                                <td>'. $remote_post->status . '</td>
+                                <td>
+                                    <button data-value="'.$remote_post->id.'" id="btn-edit">Edit</button>&nbsp;
+                                    <button data-value="'.$remote_post->id.'" id="btn-delete">Delete</button>
+                                </td>
+                           </tr>';        
+            }            
+        }
+
+        $table .= '</tbody</table>';
+        echo $table;
+    }
+
     public function ra_save_form() {
 
         if(isset($_POST['submit'])) {
@@ -62,12 +93,12 @@ class Rest_Api {
                 echo "Sorry, can't process save form.";
             }
         }
-    }
+    }    
 
 
-    public function ra_form_post() {
-        
-        include "templates/forms.php";
+    public function ra_form_post() {        
+        include "templates/forms.php";        
+        $this->ra_list_posts();
     }
 
     
@@ -77,7 +108,6 @@ class Rest_Api {
 $rest_api = new Rest_Api();
 
 add_action('wp_enqueue_scripts', array($rest_api, 'ra_wp_enqueue'));
-// add_action('wp_enqueue_scripts', array($autocomplete, 'enqueue_autocomplete'));
 
 add_shortcode( 'wp8_get_post', array($rest_api, 'ra_latest_posts'));
 add_shortcode( 'wp8_post_form', array($rest_api, 'ra_form_post'));
