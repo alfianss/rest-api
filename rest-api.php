@@ -67,41 +67,10 @@ class Rest_Api {
         echo $table;
     }
 
-    public function ra_save_form() {
-
-        if(isset($_POST['submit'])) {
-            $response = wp_remote_post( rest_url() . '/wp/v2/posts', 
-                array(                                
-                    'method'      => 'POST',  
-                    'headers'     => [
-                        'Content-Type'=> 'application/json',
-                        'X-WP-Nonce' => wp_create_nonce( 'wp_rest' ),
-                    ],              
-                    'body'        => array(
-                        'title' => isset($_POST['title']) ? $_POST['title'] : null,
-                        'content' => isset($_POST['content']) ? $_POST['content'] : null,
-                        'status' => isset($_POST['status']) ? $_POST['status'] : null,
-                    )
-                )                
-            );
-
-            
-            if( !is_wp_error( $response ) && $response['response']['code'] == 200 ) {
-                echo "Success.";
-            } else {
-                var_dump($response);        
-                echo "Sorry, can't process save form.";
-            }
-        }
-    }    
-
-
     public function ra_form_post() {        
         include "templates/forms.php";        
         $this->ra_list_posts();
-    }
-
-    
+    }    
 
 }
 
