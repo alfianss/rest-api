@@ -18,9 +18,3 @@
         <button id="submit" >Save</button>
     </div>
 </div>
-
-<?php
-    if(isset($hello)) {
-        echo $hello;
-    }
-?>
