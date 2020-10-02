@@ -5,9 +5,9 @@ jQuery(document).ready(function($) {
         var id = $(this).data('value');
         var url = '';
         if(!id) {
-            url = "http://localhost/wp_testimoni/sites1/wp-json/wp/v2/posts"; 
+            url = wpApiSettings.root + "/wp/v2/posts"; 
         } else {            
-            url = "http://localhost/wp_testimoni/sites1/wp-json/wp/v2/posts/"+id; 
+            url = wpApiSettings.root + "/wp/v2/posts/" + id; 
         }
 
         $.ajax({
@@ -41,7 +41,7 @@ jQuery(document).ready(function($) {
         var id = $(this).data('value');
         
         $.ajax({
-            url: "http://localhost/wp_testimoni/sites1/wp-json/wp/v2/posts/"+id,
+            url: wpApiSettings.root+"/wp/v2/posts/"+id,
             type: "DELETE",
             headers: {
                 "X-WP-Nonce": wpApiSettings.nonce,
@@ -66,7 +66,7 @@ jQuery(document).ready(function($) {
         var id = $(this).data('value');
         
         $.ajax({
-            url: "http://localhost/wp_testimoni/sites1/wp-json/wp/v2/posts/"+id,
+            url: wpApiSettings.root + "/wp/v2/posts/" + id,
             type: "GET",
             headers: {
                 "X-WP-Nonce": wpApiSettings.nonce,
@@ -91,7 +91,7 @@ jQuery(document).ready(function($) {
 
     function refresh_list_post() {
         $.ajax({
-            url: "http://localhost/wp_testimoni/sites1/wp-json/wp/v2/posts/",
+            url: wpApiSettings.root + "/wp/v2/posts/",
             type: "GET",
             headers: {
                 "X-WP-Nonce": wpApiSettings.nonce,

@@ -26,7 +26,7 @@ class Rest_Api {
             'latest_post'  => 1,                      
         ), $atts);
 
-        $response = wp_remote_get( get_site_url( get_option('blogid'), '/wp-json/wp/v2/posts?per_page='.$arr_atts['latest_post']));        
+        $response = wp_remote_get( rest_url() . '/wp/v2/posts?per_page='.$arr_atts['latest_post']);        
 
         if( !is_wp_error( $response ) && $response['response']['code'] == 200 ) {
             $remote_posts = json_decode($response['body']);
@@ -37,7 +37,7 @@ class Rest_Api {
     }
 
     public function ra_list_posts() {
-        $response = wp_remote_get( get_site_url( get_option('blogid'), '/wp-json/wp/v2/posts'));        
+        $response = wp_remote_get( rest_url() . '/wp/v2/posts');        
         
         $table = '<table border="1">
                     <thead>
@@ -70,7 +70,7 @@ class Rest_Api {
     public function ra_save_form() {
 
         if(isset($_POST['submit'])) {
-            $response = wp_remote_post( get_site_url( get_option('blogid'), '/wp-json/wp/v2/posts'), 
+            $response = wp_remote_post( rest_url() . '/wp/v2/posts', 
                 array(                                
                     'method'      => 'POST',  
                     'headers'     => [
