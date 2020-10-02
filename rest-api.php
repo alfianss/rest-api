@@ -26,7 +26,7 @@ class Rest_Api {
             'latest_post'  => 1,                      
         ), $atts);
 
-        $response = wp_remote_get( rest_url() . '/wp/v2/posts?per_page='.$arr_atts['latest_post']);        
+        $response = wp_remote_get( rest_url() . 'wp/v2/posts?per_page='.$arr_atts['latest_post']);        
 
         if( !is_wp_error( $response ) && $response['response']['code'] == 200 ) {
             $remote_posts = json_decode($response['body']);
@@ -37,7 +37,7 @@ class Rest_Api {
     }
 
     public function ra_list_posts() {
-        $response = wp_remote_get( rest_url() . '/wp/v2/posts');        
+        $response = wp_remote_get( rest_url() . 'wp/v2/posts');        
         
         $table = '<table border="1">
                     <thead>
